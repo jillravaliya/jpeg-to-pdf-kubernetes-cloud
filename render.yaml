@@ -1,0 +1,31 @@
+services:
+  # Backend Service
+  - type: web
+    name: jpeg-to-pdf-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: starter
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+    healthCheckPath: /health
+    autoDeploy: true
+    
+  # Frontend Service
+  - type: web
+    name: jpeg-to-pdf-frontend
+    runtime: docker
+    dockerfilePath: ./frontend/Dockerfile
+    dockerContext: ./frontend
+    plan: starter
+    envVars:
+      - key: API_URL
+        fromService:
+          type: web
+          name: jpeg-to-pdf-backend
+          property: hostport
+    healthCheckPath: /health
+    autoDeploy: true

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jpeg-to-pdf-config
+  labels:
+    app: jpeg-to-pdf
+data:
+  NODE_ENV: "production"
+  PORT: "3000"
+  VITE_API_URL: "http://jpeg-to-pdf-backend:3000"
+
